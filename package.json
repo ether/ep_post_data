@@ -1,0 +1,14 @@
+{
+  "name": "ep_post_data",
+  "description": "Post data into a new Etherpad using Curl",
+  "version": "0.0.1",
+  "author": "John McLear",
+  "repository":"git@github.com:johnmclear/ep_post_data.git",
+  "contributors": [{
+    "name": "John McLear",
+    "email": "john@mclear.co.uk",
+    "url": "http://mclear.co.uk"
+  }],
+  "dependencies": {},
+  "engines": { "node": "*" }
+}

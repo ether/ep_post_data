@@ -1,0 +1,10 @@
+{
+  "parts": [
+    {
+      "name": "post_data",
+      "hooks": {
+        "expressCreateServer": "ep_post_data/index:registerRoute"
+      }
+    }
+  ]
+}
