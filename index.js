@@ -1,6 +1,5 @@
 var API = require('../../src/node/db/API.js');
 var randomString = require('../../src/static/js/pad_utils').randomString;
-// var bodyParser = require('body-parser');
 
 exports.registerRoute = function (hook_name, args, callback) {
   args.app.post('/post', function(req, res) {
