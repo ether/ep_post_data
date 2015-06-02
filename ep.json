@@ -2,6 +2,7 @@
   "parts": [
     {
       "name": "post_data",
+      "post": ["ep_etherpad-lite/static"],
       "hooks": {
         "expressCreateServer": "ep_post_data/index:registerRoute"
       }
