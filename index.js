@@ -16,14 +16,25 @@ exports.registerRoute = function (hook_name, args, callback) {
     });
 
     req.on('end', function () {
-      API.createPad(padId, content, function(err, d){
-        if(err){
-          res.send("Error", err);
-        }else{
-          res.send("Pad Created: "+fullUrl+"/p/"+padId + " ");
+      API.getText(padId, function(err, d) {
+        if (err) {  // pad doesn't exist, create one ...
+          API.createPad(padId, content, function(err, d){
+            if(err){
+              res.send("Error: " + err);
+            }else{
+              res.send("Pad Created: "+fullUrl+"/p/"+padId + " ");
+            }
+          });
+        } else {  // pad exists, update it...
+          API.setText(padId, content, function(err, d){
+            if(err){
+              res.send("Error: " + err);
+            }else{
+              res.send("Pad Updated: "+fullUrl+"/p/"+padId + " ");
+            }
+          });
         }
       });
     });
-
   });
 }
