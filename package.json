@@ -19,6 +19,9 @@
     "type": "individual",
     "url": "http://etherpad.org/"
   },
+  "engines": {
+    "node": ">=10.17.1"
+  },
   "devDependencies": {
     "eslint": "^7.18.0",
     "eslint-config-etherpad": "^1.0.24",

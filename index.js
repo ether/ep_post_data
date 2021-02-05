@@ -1,14 +1,15 @@
+'use strict';
+
 const API = require('ep_etherpad-lite/node/db/API.js');
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
 
-exports.registerRoute = function (hook_name, args, callback) {
+exports.registerRoute = (hookName, args, callback) => {
   args.app.post('/post', (req, res) => {
     let padId = req.headers['x-pad-id'];
-    if (padId == undefined) {
+    if (padId === undefined) {
       padId = randomString(8);
     }
     let content = '';
-    const fullUrl = `${req.protocol}://${req.get('host')}`;
 
     req.on('data', (data) => {
       // Append data.
