@@ -51,4 +51,5 @@ exports.registerRoute = (hookName, args, callback) => {
       }
     });
   });
+  callback();
 };
