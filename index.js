@@ -1,6 +1,6 @@
 'use strict';
 
-const API = require('ep_etherpad-lite/node/db/API.js');
+const API = require('ep_etherpad-lite/node/db/API');
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
 
 exports.registerRoute = (hookName, args, callback) => {
