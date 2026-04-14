@@ -1,17 +1,29 @@
-![Publish Status](https://github.com/ether/ep_post_data/workflows/Node.js%20Package/badge.svg) [![Backend Tests Status](https://github.com/ether/ep_post_data/actions/workflows/test-and-release.yml/badge.svg)](https://github.com/ether/ep_post_data/actions/workflows/test-and-release.yml)
+# ep_post_data
 
-# Post data straight to a pad
+POST data directly into an Etherpad pad via HTTP.
 
-## Curl example
-```
-curl -X POST -d @/tmp/xbmc.log http://10.0.0.215:9001/post
-```
+## Install
 
-You can also use the 'x-pad-id' header to define the resulting pad name or it will be randomized. Ex:
 ```
-$ curl -X POST -d @datafile.txt -H 'X-PAD-ID: test123' http://10.0.0.215/post
-Pad Created: http://10.0.0.215/p/test123
+pnpm run plugins i ep_post_data
 ```
 
-## Limitation
-Etherpad Limits imports to 100k Characters
+## Usage
+
+POST to `/post` to create or update a pad. Set the `X-PAD-ID` header to choose the pad name, otherwise a random ID is generated.
+
+```bash
+# Create a pad with a random ID
+curl -X POST -d @datafile.txt http://localhost:9001/post
+
+# Create or update a specific pad
+curl -X POST -d @datafile.txt -H 'X-PAD-ID: mypad' http://localhost:9001/post
+```
+
+## Limits
+
+Request body is capped at 1 MB.
+
+## License
+
+Apache-2.0
