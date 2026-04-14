@@ -3,6 +3,8 @@
 const API = require('ep_etherpad-lite/node/db/API.js');
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
 
+const MAX_BODY_SIZE = 1024 * 1024; // 1 MB
+
 exports.registerRoute = (hookName, args, callback) => {
   args.app.post('/post', (req, res) => {
     let padId = req.headers['x-pad-id'];
@@ -10,12 +12,18 @@ exports.registerRoute = (hookName, args, callback) => {
       padId = randomString(8);
     }
     let content = '';
+    let aborted = false;
 
     req.on('data', (data) => {
-      // Append data.
       content += data;
+      if (content.length > MAX_BODY_SIZE) {
+        aborted = true;
+        res.status(413).send('Request body too large');
+        req.destroy();
+      }
     });
     req.on('end', async () => {
+      if (aborted) return;
       let padExists = true;
       try {
         padExists = await API.getText(padId, 0);
