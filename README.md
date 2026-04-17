@@ -1,4 +1,4 @@
-# ep_post_data
+# Create Pads from HTTP POST for Etherpad
 
 POST data directly into an Etherpad pad via HTTP.
 
