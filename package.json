@@ -1,7 +1,7 @@
 {
   "name": "ep_post_data",
   "description": "Post data into Etherpad using Curl",
-  "version": "0.1.51",
+  "version": "0.1.52",
   "author": "John McLear",
   "repository": {
     "type": "git",
