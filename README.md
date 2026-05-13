@@ -11,6 +11,7 @@ pnpm run plugins i ep_post_data
 ## Usage
 
 POST to `/post` to create or update a pad. Set the `X-PAD-ID` header to choose the pad name, otherwise a random ID is generated.
+Use `PATCH /post` to append content to an existing pad (or create it if it does not exist).
 
 ```bash
 # Create a pad with a random ID
@@ -18,6 +19,9 @@ curl -X POST -d @datafile.txt http://localhost:9001/post
 
 # Create or update a specific pad
 curl -X POST -d @datafile.txt -H 'X-PAD-ID: mypad' http://localhost:9001/post
+
+# Append to a specific pad (or create it if missing)
+curl -X PATCH -d @datafile.txt -H 'X-PAD-ID: mypad' http://localhost:9001/post
 ```
 
 ## Limits
