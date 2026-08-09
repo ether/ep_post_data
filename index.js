@@ -1,12 +1,12 @@
 'use strict';
 
-const API = require('ep_etherpad-lite/node/db/API.js');
+const API = require('ep_etherpad-lite/node/db/API');
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
 
 const MAX_BODY_SIZE = 1024 * 1024; // 1 MB
 
 exports.registerRoute = (hookName, args, callback) => {
-  args.app.post('/post', (req, res) => {
+  const upsertPadFromRequest = (req, res, shouldAppend) => {
     let padId = req.headers['x-pad-id'];
     if (padId === undefined) {
       padId = randomString(8);
@@ -49,15 +49,24 @@ exports.registerRoute = (hookName, args, callback) => {
       // Pad already exists so updating an existing pad.
       if (padExists) {
         try {
-          console.debug('ep_post_data: Setting text!', padId, content);
-          await API.setText(padId, content);
-          res.send('Success updating pad');
+          if (shouldAppend) {
+            console.debug('ep_post_data: Appending text!', padId, content);
+            await API.appendText(padId, content);
+            res.send('Success appending to pad');
+          } else {
+            console.debug('ep_post_data: Setting text!', padId, content);
+            await API.setText(padId, content);
+            res.send('Success updating pad');
+          }
         } catch (e) {
           console.error('ep_post_data: Error updating pad', padId, e);
           res.send('Error updating pad');
         }
       }
     });
-  });
+  };
+
+  args.app.post('/post', (req, res) => upsertPadFromRequest(req, res, false));
+  args.app.patch('/post', (req, res) => upsertPadFromRequest(req, res, true));
   callback();
 };
