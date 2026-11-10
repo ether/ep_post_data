@@ -1,6 +1,6 @@
 'use strict';
 
-const API = require('ep_etherpad-lite/node/db/API.js');
+const API = require('ep_etherpad-lite/node/db/API');
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
 
 const MAX_BODY_SIZE = 1024 * 1024; // 1 MB
